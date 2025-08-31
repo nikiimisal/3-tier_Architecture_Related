@@ -125,5 +125,72 @@ Launch the server.
 
 2. Database or app server in the private subnet (no direct internet access).
 
-3. Apply appropriate security groups during launch 
+3. Apply appropriate security groups during launch
+
+<h1>Three‑Tier Architecture Setup (Web → App → DB) via PowerShell, with NAT Gateway Integration</h1>
+
+Three‑Tier Access Workflow with Temporary Internet Access :
+
+1. Open PowerShell on Local Machine
+Begin by launching your local PowerShell console to coordinate subsequent actions.
+
+2. Transfer Key Pair to Web Server
+Use scp to copy the .pem & SSH key file securely to the web server:
+
+       scp -i .\web-server-your-key.pem .\app-server-your-key.pem ec2-user@web-server-ip:.
+
+
+3. SSH into the Web Server
+Authenticate and connect using SSH from your local terminal:
+
+       ssh -i .\your-key.pem ec2-user@web-server-ip
+
+
+4. Set One-Time Secure File Permissions
+On the web server, restrict access to the .pem file using:
+
+        ls -l
+        chmod 400 your-key.pem
+        ls -l
+This ensures only your user can read the private key—resolving "UNPROTECTED PRIVATE KEY FILE" errors seen with more lenient permissions like 0644 .
+
+
+5. SSH into the App Server
+From the web server, use the same app‑server key that you previously uploaded to the web server in order to access the application server (typically via its private IP address) :
+
+         ssh -i .\your-key.pem ec2-user@app-server-private-ip
+
+
+6. Install NGINX or Required Software on the App Server
+Since the app server lacks direct internet access, it needs outbound connectivity to download softwares like NGINX.
+
+7. Provision a Temporary NAT Gateway with Elastic IP
+
+Launch a NAT Gateway in the same subnet as the web server to enable internet access for the app server.
+
+Associate an Elastic IP (EIP) with the NAT Gateway to route outbound traffic securely.
+This setup is strictly temporary, used only to install required packages.
+
+8. Cleanup (Cost-Saving Best Practice)
+
+Once software installation is complete, delete the NAT Gateway immediately to stop accruing hourly charges.
+
+Disassociate and release the Elastic IP, as unused EIPs also incur charges 
+
+Since NAT Gateways incur fixed hourly and per-GB data charges 
+, minimizing usage prevents unnecessary costs.
+
+9. Cost Optimization Highlights
+
+NAT Gateway Costs: AWS charges both an hourly rate (typically $0.045–0.058 per hour) and per gigabyte of data processed 
+
+Elastic IP Charges: AWS applies hourly fees (e.g., $0.005/hour) even for unattached public IPv4 addresses 
+
+
+Community Suggestions: Developers often recommend scheduling NAT Gateway usage only when necessary, or using NAT instances (self-managed, spot/low-cost EC2) as alternative options—especially for non-production 
+
+
+
+
+In this deployment process, you begin by opening a local PowerShell console and using scp to transfer your PEM key to the web (bastion) server. After SSH'ing in, you apply a one-time permission adjustment (chmod 400) to secure the key, then SSH onward to the app server. Since the app server resides in a private subnet without internet access, you provision a temporary NAT Gateway bound to an Elastic IP to allow installation of NGINX or related software. Upon completion of setup, the NAT Gateway and Elastic IP are promptly removed to avoid ongoing charges. This approach balances secure access, efficient resource use, and cost-effective infrastructure management.
 
