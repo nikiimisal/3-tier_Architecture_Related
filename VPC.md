@@ -201,6 +201,7 @@ Disassociate and release the Elastic IP, as unused EIPs also incur charges
        sudo yum install php -y
        sudo yum install php-fpm -y
        sudo service php-fpm start
+       sudo systemctl enable php-fpm
        sudo yum update
        sudo yum install php-mysqli
    Install Nginx, since the web server will serve HTML pages from a directory and forward PHP requests to the application server’s PHP processor.
@@ -213,6 +214,9 @@ Disassociate and release the Elastic IP, as unused EIPs also incur charges
    Navigate to the Nginx document root:
 
        cd /usr/share/nginx/html
+       cd ../../../..
+       sudo service nginx restart
+       sudo service php-fpm restart
 
 Within this html directory, create a PHP file, for example index.php, which will be linked from your webserver HTML pages served by Nginx and processed by PHP-FPM.
 
