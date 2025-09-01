@@ -39,6 +39,8 @@ Step-by-Step Instructions:
 • Under "Credentials settings", select "Self managed".
 
 • Enter and confirm your own password when the password creation popup appears.
+>>As a beginner, first carefully understand each of the following steps before attempting them in practice<br>
+  Gradually, through experience and practice, you will gain a clear understanding of these steps—then apply them confidently.
 
 7. Configure Connectivity
 
