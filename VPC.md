@@ -1,4 +1,4 @@
-<h1>VPC</h1>
+<h1>VPC Setup</h1>
 <h1>Create Vpc step by step</h1> 
 
 1. Plan Your Network
