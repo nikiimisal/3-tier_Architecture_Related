@@ -36,7 +36,7 @@ Step-by-Step Instructions:
 
 • The default master username is admin (you may change it if needed).
 
-• Under "Credentials settings", select "Password authentication".
+• Under "Credentials settings", select "Self managed".
 
 • Enter and confirm your own password when the password creation popup appears.
 
