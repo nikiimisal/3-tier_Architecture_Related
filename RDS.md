@@ -107,3 +107,43 @@ iv. Select the corresponding subnets in each zone and click Create to finalize t
 • Ensure that the RDS instance is not public and is accessible only to your application layer (private subnet).
 
 • Use separate subnets in different AZs for database resilience.
+
+<h1>Connecting RDS to Your Three-Tier Architecture</h1>
+
+We have now completed the RDS setup. Next, we will connect the RDS database to our three-tier VPC architecture
+
+
+1. Access the Web Server via Shell
+Log in to your web server using an SSH client (e.g., PowerShell on Windows). For instance:
+
+       ssh -i /path/to/key.pem ec2-user@<web-server-public-ip>
+   >>You can also use this step :<br>
+   SSH into the web server and then use it to jump into the application server via SSH. Once logged into the application server, you can access and interact with the RDS database.
+3. Prepare to Connect to Amazon RDS
+To access the RDS instance, you will need its endpoint. Open the RDS console, navigate to the database details under the Connectivity & security tab, and copy the endpoint (DNS address).
+
+4. Install MariaDB Client on the App Server
+The MySQL/MariaDB client is required to connect to the RDS instance. On Amazon Linux 2, install it using:
+
+       sudo yum install mariadb105-server
+5. Connect to the RDS Instance
+   
+Once the client is installed, connect with: 
+
+      sudo mysql -u root -p -h rds-endpoint-hear
+>>To execute this command, the MariaDB client must first be installed on the application server. Once the command has executed successfully, you may uninstall MariaDB for security purposes.
+  You will be prompted to enter the master password you configured during RDS setup
+
+6. Create and Use a Database Related To Your Project
+
+After logging in, you can execute SQL commands to set up your project database. For example:
+
+       CREATE DATABASE myprojectdb;
+       USE myprojectdb;
+       CREATE TABLE example_table (
+       id INT PRIMARY KEY AUTO_INCREMENT,
+       name VARCHAR(100),
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+       );
+       INSERT INTO example_table (name) VALUES ('Sample');
+
