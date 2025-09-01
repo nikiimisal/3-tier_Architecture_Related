@@ -196,11 +196,13 @@ Disassociate and release the Elastic IP, as unused EIPs also incur charges
 
   A. Install the necessary software
 
-  Install PHP and PHP-FPM.
+  Install PHP and PHP-FPM. and msql connector (for conne t the database) :
 
        sudo yum install php -y
        sudo yum install php-fpm -y
        sudo service php-fpm start
+       sudo yum update
+       sudo yum install php-mysqli
    Install Nginx, since the web server will serve HTML pages from a directory and forward PHP requests to the application server’s PHP processor.
 
        sudo yum install nginx -y
