@@ -51,6 +51,7 @@ Step-by-Step Instructions:
 • If AWS tries to use a subnet from the web tier, it can pose security risks.
 
 • Therefore, it's best to create a dedicated subnet group for the RDS database.
+>>If you create a DB subnet group using default settings or by selecting any available subnets, RDS may choose subnets from unsuitable tiers—such as those used by web servers—which poses security risks. Therefore, you should explicitly create a dedicated subnet group containing only private subnets designated for your database
 
 9. Create Subnet Group for RDS
 
@@ -71,6 +72,11 @@ Step-by-Step Instructions:
 • Refresh the page so your newly created subnet group appears in the dropdown.
 
 • Select your custom DB subnet group.
+>>"Return to the RDS console and refresh the page. Then, create a DB Subnet Group as follows:<br>
+i. Name the subnet group, for example: mydbsubnet.<br>
+ii. Select your custom VPC from the dropdown.<br>
+iii. Add subnets: choose the Availability Zones where your private subnets were created.<br>
+iv. Select the corresponding subnets in each zone and click Create to finalize the DB Subnet Group<br>
 
 11. Set Public Access to 'No'
 
