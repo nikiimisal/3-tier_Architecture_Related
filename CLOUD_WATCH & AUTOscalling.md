@@ -51,5 +51,9 @@ To simulate high CPU usage and test alarm functionality, install and run the str
      stress --cpu 8 --timeout 60
 
   This command consumes CPU on 8 cores for 60 seconds. You should receive an email alert once your alarm is triggered.
-
+>> NOTE :<br>
+ • Delete the CloudWatch alarm, as it incurs charges.<br>
+ • If detailed monitoring is enabled, disable it by unchecking the “Enable” option to stop additional billing.<br>
+ • Terminating the EC2 instance will also cease billing for detailed monitoring of that instance.<br>
+ • SNS topics don’t incur storage costs, so you may retain or delete them based on preference.<br>
 
