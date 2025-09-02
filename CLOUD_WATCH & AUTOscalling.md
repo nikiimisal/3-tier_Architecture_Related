@@ -183,4 +183,25 @@ ii. Enable health checks—both Elastic Load Balancer health checks and also <br
 
     • There, you can view how many servers have been added in response to increased traffic.
 
+    •  As traffic increases, servers will incress; conversely, as traffic decreases, servers will decreases.
 
+
+
+
+  “If your practice session is now complete:
+
+• Delete the Auto Scaling group.
+
+• Delete the Load Balancer.
+
+• Deregister and delete the AMI.
+
+• Delete any associated snapshots.
+
+• Delete unattached EBS volumes, which continue to generate costs even after instance termination
+
+After all serveces has been closed,it is conformed
+
+• Terminate any running instances and services.
+
+• These actions should prevent any unnecessary charges.”
