@@ -57,3 +57,95 @@ To simulate high CPU usage and test alarm functionality, install and run the str
  • Terminating the EC2 instance will also cease billing for detailed monitoring of that instance.<br>
  • SNS topics don’t incur storage costs, so you may retain or delete them based on preference.<br>
 
+ <h1>AUTOSCALLING / AUTOMETION </h1>
+ <h1>Autoscalling using =>> Load balancer =>> and Cloud Watch </h1>
+Quick Recap :
+
+1. Enable Nginx on the web server via SSH and verify functionality in a browser.
+
+2. Create an AMI of the configured web server.
+
+3. Add a subnet in a different Availability Zone and mark it as public (for testing purposes).
+
+4. Launch a Load Balancer:
+
+   • Select an Application Load Balancer (ALB), make it Internet-facing, and assign it to two AZs using your public subnets.
+
+5. Create a Target Group and register three server instances.
+
+6. Configure the Load Balancer to use the Target Group, then launch it and ensure port 80 is allowed in its security group.
+
+  **** Auto Scaling Group (ASG) Setup : ****
+
+  1. Create an Auto Scaling Group
+
+i. Name the Auto Scaling Group
+Provide a meaningful name for your Auto Scaling group.
+
+ii. Launch Template Setup
+Click Create launch template to generate a new template.
+
+• Assign a logical name to the template (e.g., my-template) and specify a version identifier.
+
+• Provide a version name for the launch template
+
+• A launch template ensures all your configuration changes—including AMI, key pair, and security group—can be versioned and reused rather than modifying live instances directly.
+
+iii. Specify AMI
+Select your previously created AMI in the launch template to define the base image for new instances.
+
+iv. Choose Instance Type
+Pick a compatible instance type (e.g., t2.micro or similar depending on your requirements).
+
+v. Assign Key Pair
+Select an existing SSH key pair from your account to allow secure access.
+
+vi. Network Settings
+Under network configuration, leave the subnet set to “Don’t include in launch template”. Subnet selection is handled later via the Auto Scaling group settings itself.
+
+vii. Select Security Group
+Choose an existing security group (default is acceptable for practice scenarios).
+
+viii. Finalize Launch Template
+After completing the settings, click Create launch template.
+
+2. Launch the Auto Scaling Group
+
+  • Return to the Auto Scaling Groups section, and begin creating a new group using the launch template you just configured.
+
+3. Choose Instance Launch Option
+
+• Select your custom VPC, which ensures that your instances launch in the intended network.
+
+• Choose the appropriate web subnet within that VPC.
+
+• For Availability Zone distribution, select “Balanced (best effort)”, which ensures instances are evenly distributed across AZs while also launching them in other healthy zones if a launch fails in one.
+
+4. Integrate with Other Services (Load Balancer)
+
+ • Under Load Balancing, choose “Attach to a new load balancer.”
+
+ • Provide the required basic configuration:
+i. Select Availability Zones and their corresponding public subnets for an Internet-facing Load Balancer.
+ii. Enable health checks—both Elastic Load Balancer health checks and also <br>
+    Enable Auto Scaling health checks—to ensure only healthy instances serve traffic.
+
+5. Configure Group Size and Scaling
+
+• Define the minimum, desired, and maximum capacity according to your requirements.
+
+• Enable automatic scaling with target tracking policies.
+
+• Set the instance maintenance policy to “Launch before terminating” for smooth transitions.
+
+• Leave additional capacity settings as default.
+
+• Enable CloudWatch monitoring for the Auto Scaling group to track performance and scaling events.
+
+6. Add Notifications
+
+• Configure notifications (e.g., via SNS) to receive alerts when scaling activities occur or thresholds are breached.
+
+7. Review Configuration
+
+• Review all settings—Auto Scaling group name, launch template, VPC/subnet distribution, Load Balancer integration, scaling policies, and notifications—before finalizing the setup.
