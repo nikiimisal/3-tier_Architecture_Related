@@ -1,6 +1,7 @@
 
 <h1>CLOUD WATCH</h1>
 <h1>We will now set up Manually monitoring and alerting using Amazon CloudWatch, with the following steps:</h1>
+
 >>Amazon CloudWatch enables you to monitor all AWS resources efficiently. Simply navigate to the Monitoring tab of any EC2 instance to view visual graphs displaying metrics like CPU usage and network activity. To stay alert when server load increases,Set up a CloudWatch alarm manually for now, and later we’ll evaluate using Auto Scaling with using LOADBALANCING.
 
 1. Access Amazon CloudWatch
