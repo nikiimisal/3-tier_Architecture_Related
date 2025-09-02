@@ -83,6 +83,11 @@ i. Name the Auto Scaling Group
 Provide a meaningful name for your Auto Scaling group.
 
 ii. Launch Template Setup
+>>Ensure that Auto-assign Public IPv4 address is enabled for both subnets—websubnet and websubnetZoneB. To configure this :<br>
+  • Open the VPC console, then go to Subnets.<br>
+  • Select each subnet, click Actions → Edit subnet settings.<br>
+  • Check Enable auto-assign public IPv4 address, and click Save.<br>
+  
 Click Create launch template to generate a new template.
 
 • Assign a logical name to the template (e.g., my-template) and specify a version identifier.
@@ -118,6 +123,10 @@ After completing the settings, click Create launch template.
 • Select your custom VPC, which ensures that your instances launch in the intended network.
 
 • Choose the appropriate web subnet within that VPC.
+ >>Ensure that Auto-assign Public IPv4 address is enabled for both subnets—websubnet and websubnetZoneB. To configure this :<br>
+  • Open the VPC console, then go to Subnets.<br>
+  • Select each subnet, click Actions → Edit subnet settings.<br>
+  • Check Enable auto-assign public IPv4 address, and click Save.<br>
 
 • For Availability Zone distribution, select “Balanced (best effort)”, which ensures instances are evenly distributed across AZs while also launching them in other healthy zones if a launch fails in one.
 
