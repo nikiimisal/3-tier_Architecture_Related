@@ -1,6 +1,6 @@
 <h1>Load Balancer Setup</h1>
 <h1>For practice, we will create an internet-facing Application Load Balancer (ALB).</h1>
-<h1>Here some basic info. befor Setupping LB</h1>
+<h1>Here some basic info. befor Setupping LB(For Practoce Purpose)</h1>
 AWS offers four types of load balancers :
 
 1. Application Load Balancer (ALB) – Operates at Layer 7, ideal for HTTP/HTTPS applications. Supports advanced routing (path-based, host-based), WebSockets, SSL offloading, and target flexibility like IPs, EC2s, and Lambdas.
@@ -95,6 +95,33 @@ If the page doesn’t load, verify whether port 80 is allowed in the Load Balanc
 >>Note: The Load Balancer has its own separate security group
 
 Once configured properly, refreshing the DNS URL will show different HTML pages from the three backend servers (used here just for practice and demonstration purposes).
+
+<h1>Quick Recap</h1>
+
+
+1. Enable Nginx on the Web Server
+
+2. Create an AMI from your configured web server
+
+3. Create a new subnet in a different Availability Zone
+
+4. Configure the subnet as public to enable SSH access
+
+5. Create an Application Load Balancer (ALB), selecting two Availability Zones and their public subnets
+
+6. Create a Target Group and register three server instances as targets
+
+7. Associate the Target Group with the Load Balancer and finalize its creation
+
+8. Update the Load Balancer’s security group to allow inbound HTTP traffic on port 80
+
+>>NOTE :<br>
+• After completing your practice, delete the load balancer, as it incurs ongoing hourly charges while running.
+• The target group is a virtual configuration and does not incur any costs—keep it if needed, or delete it if no longer required.
+• Delete any AMIs you created for this setup, as they can generate storage charges.
+• Also delete any snapshots, as storing them incurs additional billing.
+• Similarly, remove the NAT Gateway and its associated Elastic IP, since both continue to accrue charges while provisioned.
+• Lastly, when deleting your RDS database, also remove any automated AMIs, snapshots, or backups that were created for it—these will continue to generate charges if left intact.
 
 
 
