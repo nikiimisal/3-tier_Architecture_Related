@@ -165,14 +165,22 @@ ii. Enable health checks—both Elastic Load Balancer health checks and also <br
    >>(using AMI.. in the new 2 servers that have been launched, also increase traffic by using ssh)<br>
       So when traffic increases, the autoscalling group launches new servers(instances).
 
-3. Once logged in, install the stress utility:
+2. Once logged in, install the stress utility:
 
        sudo amazon-linux-extras install epel -y
        sudo yum install stress -y
 
-
-4. Generate CPU load with the following command:
+3. Generate CPU load with the following command:
 
        stress --cpu 8 --timeout 60
 
  This will simulate high CPU usage for one minute, allowing you to verify that your Auto Scaling policies (e.g., launch of new instances) respond appropriately.
+
+ 
+4. To verify whether Auto Scaling is functioning correctly, generate simulated traffic on the load balancer and check the number of active targets in the Target Group.
+
+    • Go to EC2 → Load Balancers → Target Groups → Targets (or Monitoring).
+
+    • There, you can view how many servers have been added in response to increased traffic.
+
+
