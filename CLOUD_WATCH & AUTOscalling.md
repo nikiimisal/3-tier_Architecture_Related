@@ -75,7 +75,7 @@ Quick Recap :
 
 6. Configure the Load Balancer to use the Target Group, then launch it and ensure port 80 is allowed in its security group.
 
-  **** Auto Scaling Group (ASG) Setup : ****
+ <h1> **** Auto Scaling Group (ASG) Setup : ****</h1>
 
   1. Create an Auto Scaling Group
 
