@@ -1,6 +1,6 @@
 <h1>Load Balancer Setup</h1>
 <h1>For practice, we will create an internet-facing Application Load Balancer (ALB).</h1>
-<h1>Here some basic info. befor Setupping LB(For Practoce Purpose)</h1>
+<h1>Here some basic info. befor Setupping LB(For Practice Purpose)</h1>
 AWS offers four types of load balancers :
 
 1. Application Load Balancer (ALB) – Operates at Layer 7, ideal for HTTP/HTTPS applications. Supports advanced routing (path-based, host-based), WebSockets, SSL offloading, and target flexibility like IPs, EC2s, and Lambdas.
