@@ -158,3 +158,21 @@ ii. Enable health checks—both Elastic Load Balancer health checks and also <br
 7. Review Configuration
 
 • Review all settings—Auto Scaling group name, launch template, VPC/subnet distribution, Load Balancer integration, scaling policies, and notifications—before finalizing the setup.
+
+<h1>To verify whether Auto Scaling is working, generate simulated traffic on the instances.</h1>
+
+1. Open your PowerShell console and SSH into one of the newly created Auto Scaling instances using its instance ID.
+   >>(using AMI.. in the new 2 servers that have been launched, also increase traffic by using ssh)<br>
+      So when traffic increases, the autoscalling group launches new servers(instances).
+
+3. Once logged in, install the stress utility:
+
+       sudo amazon-linux-extras install epel -y
+       sudo yum install stress -y
+
+
+4. Generate CPU load with the following command:
+
+       stress --cpu 8 --timeout 60
+
+ This will simulate high CPU usage for one minute, allowing you to verify that your Auto Scaling policies (e.g., launch of new instances) respond appropriately.
