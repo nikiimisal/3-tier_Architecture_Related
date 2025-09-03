@@ -10,8 +10,8 @@ I have practiced all the individual components up to this point. Now, my plan is
 
 Implementation Steps:
 
-On the application tier, configure the code (e.g., in PHP) with the RDS endpoint to connect to the database.
+• On the application tier, configure the code (e.g., in PHP) with the RDS endpoint to connect to the database.
 
-Deploy this application code into the web-tier servers (e.g., within the HTML or code directory of the web server).
+•  Deploy this application code into the web-tier servers (e.g., within the HTML or code directory of the web server).
 
-Establish an internet‑facing load balancer to receive user traffic and forward it to the web-tier servers.
+•  Establish an internet‑facing load balancer to receive user traffic and forward it to the web-tier servers.
