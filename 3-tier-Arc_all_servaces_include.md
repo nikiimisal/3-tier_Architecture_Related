@@ -246,6 +246,15 @@ Part 0 : Web Tier Setup
       •  And know final step
 
          http://internet-facing‑load‑balancer‑DNS/your‑frontend‑page-name.html
+    here will u GO your websute (app) is live....
+
+
+    >>Personal note :<br>
+     •  Remove all temporary or unnecessary resources used for provisioning:
+     • Delete the jump server deployed in the public subnet.
+     • Deregister and remove the AMIs created for web and app servers.
+     • Rationale: These temporary resources can pose potential security risks—hackers could exploit them to gain access to your application environment.
+     • Action Required: For security purposes, remove any components that are no longer needed.
 
 
 
