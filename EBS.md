@@ -72,7 +72,8 @@ To mount, you need to create a folder.
 
 • Now that the HDD’s filesystem has been set up, you must mount it onto a directory (mount point). Whatever you do in that directory—like creating folders, reading, and writing—will happen on the HDD.
 • And If you intend to detach the file system ( volume ) , please unmount it first. Otherwise, there is a risk of data corruption .
->>Once detached, the volume can be attached to another EC2 instance—provided that both the volume and the instance reside in the same Availability Zone. After attaching, no further modifications are necessary; you simply mount the volume, and it is ready for use.
+>>Once detached, the volume can be attached to another EC2 instance—provided that both the volume and the instance reside in the same Availability Zone. After attaching, no further modifications are necessary; you simply create the folder and mount the volume, and it is ready for use.
+
 >>To detach the volume: first, navigate to the EC2 console. Then, locate and select the desired volume under Elastic Block Store in the navigation pane. Finally, open the Actions menu and choose Detach Volume
 
 unmount command :
@@ -98,8 +99,51 @@ After Unmounting :
 
 Once you unmount the filesystem, the hidden original files reappear, since you are now viewing the underlying directory, not the mounted filesystem
 
-          
-                     
+<h1>• The mount we have made is temporary—it remains in effect only while the server is powered on.<br>
+    • If you require a permanent mount, open a console and execute the following command:<br>
+        
+        sudo nano /etc/fstab
+
+   Then insert an entry such as:<br>
+
+       /dev/xvdbf /foldername xfs defaults,nofail 0 2
+   This will ensure the volume is mounted permanently.
+   </h1>
+
+<h1>Part 2: Extending the Size of an Existing EBS Volume</h1>
+
+(A) Modify Volume Size Without Detaching (Elastic Volumes)
+
+  1. In the console, go to Volumes, select the volume, then Actions → Modify Volume.
+
+  2. Increase the size (and optionally performance or type) and click Modify 
+
+  3. Confirm the modification has entered the optimizing or completed state 
+
+
+(B) On the EC2 Instance: Expand Partition & File System
+
+Once modification is done:
+
+1. SSH into the instance:
+
+       lsblk         # See updated volume size vs partition size
+       df -h
+2. If your disk uses partitions—and the partition is smaller—expand it:
+
+         sudo growpart /dev/xvda 1  # For Xen
+   Resize the file system based on its type:
+
+   XFS:
+   
+         sudo xfs_growpfs /dev/xvda1
+   Ext4:
+
+       sudo resize2fs /dev/xvda1
+   Verify the changes:
+   
+         df -h
+              
 
  
  
