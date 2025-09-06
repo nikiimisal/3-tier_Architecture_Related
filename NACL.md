@@ -61,9 +61,9 @@ NACL vs. Security Group :
 
 <h1>When & Why to Use NACLs</h1>
 
- • Layered Security: Acts as a broad filter before deeper inspection via security groups 
- • Blacklisting/Whitelisting: Useful to deny known malicious IPs across a subnet—even if security groups are misconfigured 
- • High-Security Environments: Often used in industries with strict compliance needs as a mandatory backstop 
+ • Layered Security: Acts as a broad filter before deeper inspection via security groups <br>
+ • Blacklisting/Whitelisting: Useful to deny known malicious IPs across a subnet—even if security groups are misconfigured <br>
+ • High-Security Environments: Often used in industries with strict compliance needs as a mandatory backstop <br>
 
  
  However, some teams avoid them due to complexity—stateless rules require precise configuration, and troubleshooting can become difficult
