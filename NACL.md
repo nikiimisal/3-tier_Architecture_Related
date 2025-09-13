@@ -15,7 +15,7 @@ NACL vs. Security Group :
 
 <h1>Use a NACL (AWS Example)</h1>
 
-1.  Create a VPC and Subnet
+<h2>1.  Create a VPC and Subnet</h2>
 
 • NACLs are associated at the subnet level. Create your VPC and define its subnets if not already done.
 
@@ -24,37 +24,37 @@ NACL vs. Security Group :
 
 • You can also block a specific IP address within ‘NACL’ by modifying the security rules, or utilize other applicable scenarios
 
-2. Access the NACL Console
+<h2>2. Access the NACL Console</h2>
 
 • Navigate to the VPC service in the AWS Console.
 
 • Select Network ACLs from the sidebar to view default allocations and manage new ones.
 
-3. Create a Custom NACL
+<h2>3. Create a Custom NACL</h2>
 
 • Click Create Network ACL, assign a descriptive name, and link it to your VPC 
 
-4. Associate NACL with Subnet
+<h2>4. Associate NACL with Subnet</h2>
 
 • Go to Subnet associations, choose your subnet, and attach the newly created NACL (replacing the default) 
 
-5. Define Inbound and Outbound Rules
+<h2>5. Define Inbound and Outbound Rules</h2>
 
 • Edit Inbound rules: Specify rule number, protocol (e.g., TCP), port range, source IP (CIDR), and action (Allow/Deny).
 
 • Edit Outbound rules: Similarly, specify rule number, protocol, port range, destination IP, and action 
 
-6. Rule Numbering Matters
+<h2>6. Rule Numbering Matters</h2>
 
 • Rules are evaluated in ascending order. Lower numbers are higher priority; the first match applies 
 
-7. Test and Monitor
+<h2>7. Test and Monitor</h2>
 
  • Launch an instance within the subnet and test access (e.g., SSH). If inbound is allowed but outbound isn’t explicitly allowed, the connection will fail due to statelessness.
 
  • Use VPC Flow Logs to monitor and verify traffic behavior 
 
-8. Consider Rule Limits
+<h2>8. Consider Rule Limits</h2>
 
  • AWS allows up to 100 rules per NACL, and a maximum of 200 NACLs per VPC. Each subnet can be attached to only one NACL, but a NACL can cover multiple subnets 
 
