@@ -126,7 +126,7 @@ After completing the standard setup, you'll have some extra network-related sett
    
    c. Enable Public IP assignment—since this is a public server, it needs a public IP. If it were a private server, you would disable this feature.<br>
 
-For beginners, this setup is sufficient for now. Additional advanced configurations can be learned over time through experience and practice.
+>>For beginners, this setup is sufficient for now. Additional advanced configurations can be learned over time through experience and practice.
 
 Launch the server.
 
