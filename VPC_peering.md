@@ -1,10 +1,11 @@
 <h1>Step-by-Step Guide to AWS VPC Peering</h1>
-1. Prerequisites
+<h2>1. Prerequisites</h2>
 
 • You must have two VPCs with non-overlapping CIDR blocks—for example, 10.0.0.0/16 and 10.1.0.0/16. Overlapping CIDRs will cause the peering request to fail immediately
+<br>
 • If you intend to set up VPC peering, it is necessary to have at least one public subnet. Alternatively, as a practical approach for beginners, launching two servers in public subnets may be the most effective method for hands‑on learning.
 
-2. Create Peering Connection
+<h2>2. Create Peering Connection</h2>
 
 • Via AWS Console:
 
@@ -29,16 +30,17 @@
  New-EC2VpcPeeringConnection (PowerShell)
 
 
-3. Accept the Peering Request
+<h2>3. Accept the Peering Request</h2>
 
    >>To accept a VPC peering request, open the Amazon VPC console in the same region as the accepter VPC. Navigate to Peering Connections, locate the peering connection with status pending‑acceptance, then under      Actions, select Accept request and confirm when prompted.
+
  • The request enters a pending-acceptance state. The owner of the Accepter VPC must accept it to activate the connection .
 
  • If it's within the same account, you accept it yourself. For cross-account or inter-region, it needs to be accepted in the target account and region.
 
-4. Now that the VPC peering connection has been established, let us proceed to launch one EC2 instance in each of the two peered VPCs.
+<h2>4. Now that the VPC peering connection has been established, let us proceed to launch one EC2 instance in each of the two peered VPCs.</h2>
 
-   instance launching time in the network setting :
+   <h3>instance launching time in the network setting :</h3>
 
   • Select the VPC
    -- While launching the EC2 instance, choose the appropriate VPC under Network Settings.
@@ -55,7 +57,7 @@
    -- Set Source Type to Custom and enter 0.0.0.0/0 as the source—this allows access from the public internet.
    -- Because we need to install software.( i.e. nginx)
     
-5. Now, enter using SSH command in the Power Console to access the instance (server)...the instance to which we've assigned the public-accessible CIDR block will be accessible from the public internet. This          configuration allows us to install Nginx directly on that instance.
+<h2>5. Now, enter using SSH command in the Power Console to access the instance (server)...the instance to which we've assigned the public-accessible CIDR block will be accessible from the public internet. This          configuration allows us to install Nginx directly on that instance.</h2>
 
          sudo yum install nginx
          sudo service nginx start
@@ -67,7 +69,7 @@
      curl http://dusrya-server-chi-PVT-ip/nikhil.html
   • Running the SSH command alone will fail unless the necessary route table updates are in place.
 
-6. Update Route Tables
+<h2>6. Update Route Tables</h2>
 
 i. Send Peering Request
 
@@ -97,7 +99,7 @@ v. Repeat for Second Instance
 
 • Perform these exact steps on the second EC2 instance to ensure proper bidirectional routing between the peered VPCs.
 
-7. So now, run this command and is the output visible? then here will you go your vpc peering succefull..
+<h2>7. So now, run this command and is the output visible? then here will you go your vpc peering succefull..</h2>
          
    
        curl http://dusrya-server-chi-PVT-ip/nikhil.html
