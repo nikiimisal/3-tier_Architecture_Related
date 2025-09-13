@@ -1,4 +1,4 @@
-   I have practiced all the individual components up to this point. Now, my plan is to consolidate these topics into a complete three‑tier architecture, consisting of the following layers:
+<h3> I have practiced all the individual components up to this point. Now, my plan is to consolidate these topics into a complete three‑tier architecture, consisting of the following layers:</h3>
 
 1. Database Tier (DB Tier): A relational database, such as RDS, hosting the data used by the application.
 
@@ -27,14 +27,14 @@ In the AWS Console under VPC service, create a new VPC (e.g., CIDR block 10.0.0.
 
 <h2>Part 2. Set Up Subnets Across Availability Zones (AZs)</h2>
 
-• Create public subnets (2, one in each AZ) for the Internate face loadbalancer.
+• Create public subnets (2, one in each AZ) for the Internate face loadbalancer.<br>
 • Create private subnets : two for the App Tier , two for the Database Tier ,two for the Web Tier
 
 <h2>Part 3. Attach Internet Gateway</h2>
 
 • Set up an Internet Gateway and attach it to your VPC.
 
-<h2>part 4. Database Tier Setup (RDS)<h2></h2>
+<h2>part 4. Database Tier Setup (RDS)</h2>
 
 1. Create a DB Subnet Group
 
@@ -49,8 +49,9 @@ In the AWS Console under VPC service, create a new VPC (e.g., CIDR block 10.0.0.
 
 • Public Route Table → Links public subnets to the Internet Gateway.(i.e.load balancer subnet1 and subnet2)
 
-• Private Route Table → Links private subnets
+• Private Route Table → Links private subnets<br>
    to the NAT Gateway (for outbound internet access without direct exposure) 
+   
    >>(optional) Create a NAT Gateway :<br>
     In one public subnet, set up a NAT Gateway (with an Elastic IP) so App and Database tiers can access the internet for updates while staying private.
 
@@ -59,9 +60,9 @@ In the AWS Console under VPC service, create a new VPC (e.g., CIDR block 10.0.0.
   You can also use a jump server. After launching the jump server for logging into RDS, create an AMI from it and launch a new (application) server using that AMI..<br>
   Assign that AMI to the Auto Scaling Group.
 
-• I launched a jump (bastion) server in the public subnet alongside the load balancer, and configured its security group to allow only SSH access (port 22).
+• I launched a jump (bastion) server in the public subnet alongside the load balancer, and configured its security group to allow only SSH access (port 22).<br>
 
-• I plan to terminate this bastion host upon completion of the three-tier architecture setup.
+• I plan to terminate this bastion host upon completion of the three-tier architecture setup.<br>
 
 • After connecting via SSH, I installed the MariaDB to gain access to the RDS database within the DB-tier to the mysql command-line utility.
 
@@ -71,38 +72,39 @@ In the AWS Console under VPC service, create a new VPC (e.g., CIDR block 10.0.0.
 
      sudo mysql -u root -p -h <RDS‑endpoint>
 
-• However the connection failed because the RDS security group does not yet permit inbound traffic on port 3306 from the bastion host.
+• However the connection failed because the RDS security group does not yet permit inbound traffic on port 3306 from the bastion host.<br>
 
-• Since the environment is not live yet, I will temporarily enable port 3306 in the RDS security group to allow this access.
+• Since the environment is not live yet, I will temporarily enable port 3306 in the RDS security group to allow this access.<br>
 
-• Once the necessary work is completed, I will immediately revoke the port 3306 access to maintain security.
+• Once the necessary work is completed, I will immediately revoke the port 3306 access to maintain security.<br>
 
-• Upon successful connection, I will create a project-specific database on the RDS instance.(DB-tier)
+• Upon successful connection, I will create a project-specific database on the RDS instance.(DB-tier)<br>
+
 >>The RDS is now ready. Now, at the previous level, integrate the app-tier using PHP (or any programming language)
 
 <h2>Part 6: App Tier Setup</h2>
 
-1. Launch EC2 Instances in the App Tier
+<h3>1. Launch EC2 Instances in the App Tier</h3>
    
     For creating AMI purpose :
    
    i. Assign a name (for example, Dev-Test-Instance),
 
-  ii. Add or select a key pair for secure access,
+   ii. Add or select a key pair for secure access,
 
- iii. Choose the operating system (AMI),
+   iii. Choose the operating system (AMI),
 
- iv. Select the VPC and set the subnet to a public subnet,
+   iv. Select the VPC and set the subnet to a public subnet,
 
- v. Enable auto‑assign public IP (since it's needed for development/test access),
+   v. Enable auto‑assign public IP (since it's needed for development/test access),
 
-vi. Open port 80 in the security group for HTTP access,
+   vi. Open port 80 in the security group for HTTP access,
 
-vii. Then launch the instance.
+   vii. Then launch the instance.
 
-viii. Open a PowerShell console and SSH into the application server's public subnet using its public IP.
+   viii. Open a PowerShell console and SSH into the application server's public subnet using its public IP.
 
-ix. On the server, install necessary software packages like Nginx, PHP, PHP‑FPM, and the PHP MySQL connector (mysqli).
+   ix. On the server, install necessary software packages like Nginx, PHP, PHP‑FPM, and the PHP MySQL connector (mysqli).
 
    Start, enable, and restart all related services as needed.
 
@@ -115,14 +117,17 @@ ix. On the server, install necessary software packages like Nginx, PHP, PHP‑FP
      sudo systemctl enable nginx
      sudo systemctl start php-fpm
      sudo systemctl enable php-fpm
-x. Create a basic PHP file for testing—such as phpinfo()—and verify it runs correctly by visiting http://localhost in your browser.  
 
-xi. and know Add your application’s code (e.g., the PHP project) into the appropriate directory and verify it works.
+   
+   x. Create a basic PHP file for testing—such as phpinfo()—and verify it runs correctly by visiting http://localhost in your browser.  
 
-xii.Ensure that an HTML file works as expected in the same setup..<br>
+   xi. and know Add your application’s code (e.g., the PHP project) into the appropriate directory and verify it works.
+
+   xii.Ensure that an HTML file works as expected in the same setup..<br>
      For this purpose, create project related HTML page—only to verify functionality (such as that the PHP code is running correctly)—and then remove it afterward.
 
 xiii. In your PHP code, include your AWS RDS database connection details and fill in placeholders (RDS endpoint, username, password, database name) so that your app can insert data without errors.
+
 
       <? php 
       / Database connection settings
@@ -155,6 +160,7 @@ xv. Finally, create an AMI from this configured application server in your publi
  • To change(Add) this: go to the Load Balancer → Listeners and Rules → under the Forward to target group section, click the Target Group link → go to Health Check → click Edit → specify index.php (or equivalent) → save.
  >>You are free to make any necessary changes to the data, if required.
  <br>
+ 
  >>NOTE : To start Auto Scaling, I have created file name ( CLOUD_WATCH & AUTOscalling.md ) in this directory; the relevant information can be found there.
           
 
@@ -163,17 +169,17 @@ xv. Finally, create an AMI from this configured application server in your publi
 
 1. Launch EC2 Instances
 
-• Create one EC2 instance in public subnet . These will host your web pages or front-end logic (HTML, CSS, JavaScript, or server-side rendering).
+   • Create one EC2 instance in public subnet . These will host your web pages or front-end logic (HTML, CSS, JavaScript, or server-side rendering).
 
 2. Deploy Code or Web Server
 
-• SSH into the instances and install necessary software (e.g., Apache or Nginx, PHP runtime).
+   • SSH into the instances and install necessary software (e.g., Apache or Nginx, PHP runtime).
 
-• ( Optionally ), store code in S3 and pull it in using AWS CLI.
+   • ( Optionally ), store code in S3 and pull it in using AWS CLI.
 
 3. You are now in the Web Tier.
    
-• When data is submitted through the HTML page, the request should be forwarded to the PHP server in the App Tier.
+   • When data is submitted through the HTML page, the request should be forwarded to the PHP server in the App Tier.
 
 4. To enable this, configure the NGINX configuration file on the Web Tier to set up a proxy pass:
 
@@ -215,22 +221,25 @@ xv. Finally, create an AMI from this configured application server in your publi
    
 
  >>( optional solution ) :<br>
- >>• This method may not be ideal, but I have shown you one possible way to accomplish it.
-   • It might be unconventional, but I wanted to demonstrate that it can also be done this way
-  >>  What should we do next , If that happens…?  We need to connect to the newly App‑tier server, which we created using Auto Scaling and load balancing , which resides in the private subnet. For that, we will        need to use a key pair.
-    • Because the App Tier is in a private subnet behind the Auto Scaling Load Balancer, you'll need the key pair to log in.
-    • Use scp from your local machine( power shell ) to a public EC2 instance in a public subnet to upload the key pair there.
-    • If you need these steps in detail, refer to the “Reference VPC” folder where I’ve documented them all follow that.
- >>• In the App Tier’s private subnet security group :
-  • Temporarily add port 22 to allow SSH access.
-  • After you're done, remove port 22 to restore security.
->>• Once logged into the App Tier EC2 instance:
+ >>• This method may not be ideal, but I have shown you one possible way to accomplish it.<br>
+   • It might be unconventional, but I wanted to demonstrate that it can also be done this way<br>
+  >>  What should we do next , If that happens…?  We need to connect to the newly App‑tier server, which we created using Auto Scaling and load balancing ,<br>
+      which resides in the private subnet. For that, we will need to use a key pair.<br>
+    • Because the App Tier is in a private subnet behind the Auto Scaling Load Balancer, you'll need the key pair to log in.<br>
+    • Use scp from your local machine( power shell ) to a public EC2 instance in a public subnet to upload the key pair there.<br>
+    • If you need these steps in detail, refer to the “Reference VPC” folder where I’ve documented them all follow that.<br>
+    
+ >>• In the App Tier’s private subnet security group :<br>
+  • Temporarily add port 22 to allow SSH access.<br>
+  • After you're done, remove port 22 to restore security.<br>
+  
+>>• Once logged into the App Tier EC2 instance:<br>
   • Start and enable all necessary services (e.g., NGINX, PHP, etc.).
 
-9. • Now, create an AMI of the Web‑tier => because we need to launch an application server in the private subnet using this AMI.
-   • just like we did for the App tier. For that, you can refer to the setup steps used for the App tier.
-   • Now, pay a little more attention here: the server is in a private subnet, while the Load Balancer is in a public subnet.
-   • So Here When we creating the Auto Scaling group, you will have the option to create a new load balancer. Once selected, choose the option for an internate facing LB  and here select public subnet for             internate facing LB.
+9. • Now, create an AMI of the Web‑tier => because we need to launch an application server in the private subnet using this AMI****<br>
+   • just like we did for the App tier. For that, you can refer to the setup steps used for the App tier.<br>
+   • Now, pay a little more attention here: the server is in a private subnet, while the Load Balancer is in a public subnet.<br>
+   • So Here When we creating the Auto Scaling group, you will have the option to create a new load balancer. Once selected, choose the option for an internate facing LB  and here select public subnet for  <br>           internate facing LB.<br>
 
    >>NOTE : Also, ensure that the required services are started and enabled.
 
@@ -250,11 +259,11 @@ xv. Finally, create an AMI from this configured application server in your publi
 
 
     >>Personal note :<br>
-     •  Remove all temporary or unnecessary resources used for provisioning:
-     • Delete the jump server deployed in the public subnet.
-     • Deregister and remove the AMIs created for web and app servers.
-     • Rationale: These temporary resources can pose potential security risks—hackers could exploit them to gain access to your application environment.
-     • Action Required: For security purposes, remove any components that are no longer needed.
+     •  Remove all temporary or unnecessary resources used for provisioning:<br>
+     • Delete the jump server deployed in the public subnet.<br>
+     • Deregister and remove the AMIs created for web and app servers.<br>
+     • Rationale: These temporary resources can pose potential security risks—hackers could exploit them to gain access to your application environment.<br>
+     • Action Required: For security purposes, remove any components that are no longer needed.<br>
 
 
 
