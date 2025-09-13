@@ -1,13 +1,13 @@
 <h1>VPC Setup</h1>
 <h1>Create Vpc step by step</h1> 
 
-1. Plan Your Network
+<h2>1. Plan Your Network</h2>
 
-Define the CIDR block for your VPC (e.g., 10.0.0.0/16) to ensure enough IPs for scalability 
+• Define the CIDR block for your VPC (e.g., 10.0.0.0/16) to ensure enough IPs for scalability 
 
-Decide whether you’ll include both public and private subnets for a multi-tier architecture 
+• Decide whether you’ll include both public and private subnets for a multi-tier architecture 
 
-2. Create a Custom VPC
+<h2>2. Create a Custom VPC</h2>
 
 Open VPC Consol :
 In the AWS Console, open the VPC Dashboard and click Create VPC.
@@ -15,20 +15,21 @@ In the AWS Console, open the VPC Dashboard and click Create VPC.
 Choose "VPC only" to create VPC, or "VPC and more" to include subnets, gateways, etc., in one go 
 AWS Documentation
 
-Provide:
-
-• A Name tag (optional but helpful for organization)
-• The IPv4 CIDR block
-• (Optional) IPv6 block, Tenancy (default or dedicated) 
+<h4>Provide:</h4>
+<br>
+• A Name tag (optional but helpful for organization)<br>
+• The IPv4 CIDR block<br>
+• (Optional) IPv6 block, Tenancy (default or dedicated) <br>
 >If you turn on the tenancy on the default basis and then switch it to a dedicated mode, the billing will begin.
+
 • Click Create VPC to finish 
 
 
-3. Create & Add Subnets
+<h2>3. Create & Add Subnets</h2>
 
 Go to Subnets in the VPC dashboard and click Create subnet.
 
-Create at least:
+ -- Create at least:
 
 • 1 public subnet, e.g., 10.0.1.0/24
 
@@ -36,29 +37,33 @@ Create at least:
 
 Assign each subnet to different Availability Zones for high availability 
 
-4. Set Up an Internet Gateway (IGW)
+<h2>4. Set Up an Internet Gateway (IGW)</h2>
 
-• Navigate to Internet Gateways, click Create, give it a name, then 
-• Attach to VPC =Click on the internet gateway that you created. Then click on Actions, 
-  and from there choose Attach to VPC. Finally, select the internet gateway that you created when prompted to connect it to the VPC.
+• Navigate to Internet Gateways, click Create, give it a name, then <br>
+
+• Attach to VPC =Click on the internet gateway that you created. Then click on Actions, <br>
+  and from there choose Attach to VPC. Finally, select the internet gateway that you created when prompted to connect it to the VPC.<br>
+  
 • To make your perticular subnet truly "public," you’ll need to update its route table next 
 
-5. Configure Route Table for Public Subnet
+<h2>5. Configure Route Table for Public Subnet</h2>
 
-• Access Route Tables, create or select one for public traffic and another for private.
-• Add a public route: 0.0.0.0/0 → the Internet Gateway (IGW).
-• Associate this route table with your public subnet 
+• Access Route Tables, create or select one for public traffic and another for private.<br>
 
-6. Set Up NAT Gateway for Private Subnet
+• Add a public route: 0.0.0.0/0 → the Internet Gateway (IGW).<br>
 
-Allocate an Elastic IP under Elastic IPs.
+• Associate this route table with your public subnet <br>
 
-Go to NAT Gateways, click Create, choose your public subnet and attach the Elastic IP 
+<h2>6. Set Up NAT Gateway for Private Subnet</h2>
 
-In the private route table, add route 0.0.0.0/0 → your NAT Gateway and associate it with your private subnet 
+• Allocate an Elastic IP under Elastic IPs.<br>
+
+• Go to NAT Gateways, click Create, choose your public subnet and attach the Elastic IP <br>
+
+• In the private route table, add route 0.0.0.0/0 → your NAT Gateway and associate it with your private subnet <br>
 
 
-7. Enable DNS Support (via CLI, if needed)
+<h2>7. Enable DNS Support (via CLI, if needed)</h2>
 
 If using the AWS CLI, ensure DNS resolution and hostnames are enabled:
 
@@ -66,36 +71,36 @@ If using the AWS CLI, ensure DNS resolution and hostnames are enabled:
     aws ec2 modify-vpc-attribute --vpc-id <vpc-id> --enable-dns-hostnames
 
 
-8. Define Security: Security Groups & Network ACLs
+<h2>8. Define Security: Security Groups & Network ACLs</h2>
 
-Security Groups (instance-level):
+<h4>Security Groups (instance-level):</h4>
 
-Create SSH or HTTP rules (e.g., allow only port 22 for SSH, port 80 for HTTP).
+• Create SSH or HTTP rules (e.g., allow only port 22 for SSH, port 80 for HTTP).
 
-Network ACLs (subnet-level):
+• Network ACLs (subnet-level):
 
 Add additional fine-grained inbound/outbound rules (note: SGs are allow‑only; NACLs support allow and deny) 
 
 
-9. (Optional) Add VPC Endpoints
+<h2>9. (Optional) Add VPC Endpoints</h2>
 
-Use VPC endpoints to enable private connectivity to AWS services like S3 without going through the internet 
+• Use VPC endpoints to enable private connectivity to AWS services like S3 without going through the internet 
 
-10. Verify Configuration
+<h2>10. Verify Configuration</h2>
 
-Validate each component:
+<h4>Validate each component:</h4>
 
-VPC: describe-vpcs
+• VPC: describe-vpcs
 
-Subnets: describe-subnets
+• Subnets: describe-subnets
 
-Route Tables, Internet Gateway, NAT Gateway, Security Groups: use respective describe-... CLI commands 
+• Route Tables, Internet Gateway, NAT Gateway, Security Groups: use respective describe-... CLI commands 
 
 <h1> Launch EC2 Instances</h1>
 
-Deploy resources to test:
+<h5>Deploy resources to test:</h5>
 
-1. Web server in the public subnet (allows public access).
+<h2>1. Web server in the public subnet (allows public access).</h2>
 
 
 Steps to Launch an Instance (with Network Customization)
@@ -123,9 +128,9 @@ For beginners, this setup is sufficient for now. Additional advanced configurati
 
 Launch the server.
 
-2. Database or app server in the private subnet (no direct internet access).
+<h2>2. Database or app server in the private subnet (no direct internet access).</h2>
 
-3. Apply appropriate security groups during launch
+<h2>3. Apply appropriate security groups during launch</h2>
 
 <h1>Three‑Tier Architecture Setup (Web → App → DB) via PowerShell, with NAT Gateway Integration</h1>
 
