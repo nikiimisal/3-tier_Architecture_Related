@@ -19,22 +19,22 @@ Implementation Steps:
 <h1>3-tier Arc all serveces including </h1>
 
 
-Part 1: Network & Infrastructure Setup
+<h2>Part 1: Network & Infrastructure Setup</h2>
 
-1. Create a VPC
+<h3>1. Create a VPC</h3>
 
 In the AWS Console under VPC service, create a new VPC (e.g., CIDR block 10.0.0.0/16)
 
-Part 2. Set Up Subnets Across Availability Zones (AZs)
+<h2>Part 2. Set Up Subnets Across Availability Zones (AZs)</h2>
 
 • Create public subnets (2, one in each AZ) for the Internate face loadbalancer.
 • Create private subnets : two for the App Tier , two for the Database Tier ,two for the Web Tier
 
-Part 3. Attach Internet Gateway
+<h2>Part 3. Attach Internet Gateway</h2>
 
 • Set up an Internet Gateway and attach it to your VPC.
 
-part 0. Database Tier Setup (RDS)
+<h2>part 4. Database Tier Setup (RDS)<h2></h2>
 
 1. Create a DB Subnet Group
 
@@ -45,7 +45,7 @@ part 0. Database Tier Setup (RDS)
 • Choose a database engine (e.g., MySQL), set credentials, assign the DB SG, and pick the subnet group. Enable multi-AZ for redundancy.
 
 
-Part 4. Configure Route Tables & RDS
+<h2>Part 5. Configure Route Tables & RDS</h2>
 
 • Public Route Table → Links public subnets to the Internet Gateway.(i.e.load balancer subnet1 and subnet2)
 
@@ -80,7 +80,7 @@ Part 4. Configure Route Tables & RDS
 • Upon successful connection, I will create a project-specific database on the RDS instance.(DB-tier)
 >>The RDS is now ready. Now, at the previous level, integrate the app-tier using PHP (or any programming language)
 
-Part 0: App Tier Setup
+<h2>Part 6: App Tier Setup</h2>
 
 1. Launch EC2 Instances in the App Tier
    
@@ -138,7 +138,7 @@ xiv. Once data insertion works correctly, remove the HTML test page
 
 xv. Finally, create an AMI from this configured application server in your public subnet.
 
-part 0. Set Up Auto Scaling & Internal Load Balancer
+<h2>part 7. Set Up Auto Scaling & Internal Load Balancer</h2>
 
 
 
@@ -159,7 +159,7 @@ part 0. Set Up Auto Scaling & Internal Load Balancer
           
 
 
-Part 0 : Web Tier Setup
+<h2>Part 8 : Web Tier Setup</h2>
 
 1. Launch EC2 Instances
 
