@@ -202,15 +202,15 @@ xv. Finally, create an AMI from this configured application server in your publi
 
 5. How to find the Load Balancer’s internal DNS:
 
-• Go to the Load Balancer section in AWS.
+  • Go to the Load Balancer section in AWS.
 
-• Click on the Load Balancer ID.
+  • Click on the Load Balancer ID.
 
-• Scroll down slightly — you will find the DNS name there.
+  • Scroll down slightly — you will find the DNS name there.
 
 6. Update the internal Load Balancer’s Security Group:
 
-  •  Add port 80 (for HTTP) and port 3306 (for MySQL database access).
+   •  Add port 80 (for HTTP) and port 3306 (for MySQL database access).
 
 7. Reload the NGINX service on the Web Tier:
 
@@ -223,7 +223,8 @@ xv. Finally, create an AMI from this configured application server in your publi
  >>( optional solution ) :<br>
  >>• This method may not be ideal, but I have shown you one possible way to accomplish it.<br>
    • It might be unconventional, but I wanted to demonstrate that it can also be done this way<br>
-  >>  What should we do next , If that happens…?  We need to connect to the newly App‑tier server, which we created using Auto Scaling and load balancing ,<br>
+   
+  >>  What should we do next , If that happens…?  We need to connect to the newly App‑tier server, which we created using Auto Scaling and load balancing ,
       which resides in the private subnet. For that, we will need to use a key pair.<br>
     • Because the App Tier is in a private subnet behind the Auto Scaling Load Balancer, you'll need the key pair to log in.<br>
     • Use scp from your local machine( power shell ) to a public EC2 instance in a public subnet to upload the key pair there.<br>
@@ -237,8 +238,11 @@ xv. Finally, create an AMI from this configured application server in your publi
   • Start and enable all necessary services (e.g., NGINX, PHP, etc.).
 
 9. • Now, create an AMI of the Web‑tier => because we need to launch an application server in the private subnet using this AMI****<br>
+
    • just like we did for the App tier. For that, you can refer to the setup steps used for the App tier.<br>
+   
    • Now, pay a little more attention here: the server is in a private subnet, while the Load Balancer is in a public subnet.<br>
+   
    • So Here When we creating the Auto Scaling group, you will have the option to create a new load balancer. Once selected, choose the option for an internate facing LB  and here select public subnet for  <br>           internate facing LB.<br>
 
    >>NOTE : Also, ensure that the required services are started and enabled.
