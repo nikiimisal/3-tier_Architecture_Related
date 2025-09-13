@@ -123,11 +123,11 @@ Log in to your web server using an SSH client (e.g., PowerShell on Windows). For
 <h3>2. Prepare to Connect to Amazon RDS</h3>
 To access the RDS instance, you will need its endpoint. Open the RDS console, navigate to the database details under the Connectivity & security tab, and copy the endpoint (DNS address).
 
-3. Install MariaDB Client on the App Server
+<h3>3. Install MariaDB Client on the App Server</h3>
 The MySQL/MariaDB client is required to connect to the RDS instance. On Amazon Linux 2, install it using:
 
        sudo yum install mariadb105-server
-4. Connect to the RDS Instance
+<h3>4. Connect to the RDS Instance</h3>
    
 Once the client is installed, connect with: 
 
@@ -135,7 +135,7 @@ Once the client is installed, connect with:
 >>To execute this command, the MariaDB client must first be installed on the application server. Once the command has executed successfully, you may uninstall MariaDB for security purposes.
   You will be prompted to enter the master password you configured during RDS setup
 
-5. Create and Use a Database Related To Your Project
+<h3>5. Create and Use a Database Related To Your Project</h3>
 
 After logging in, you can execute SQL commands to set up your project database. For example:
 
